@@ -142,7 +142,7 @@ h2 i{font-style:italic;color:var(--ac)}
 .act p{margin:0;color:var(--tx2);font-size:15px}
 @media(max-width:900px){.act{grid-template-columns:1fr;min-height:0;padding:26px 0}
   .act .side{padding:0}.act .side.a{order:0!important;margin-bottom:16px}
-  .fpath,#pathfly{display:none}}
+  .fpath,#pathfly,#flyers{display:none}}
 .closing{margin:52px auto 0;max-width:820px;padding:34px 38px;background:var(--surf);
   border:1px solid var(--line);border-radius:var(--rad);box-shadow:var(--shadow)}
 .closing p{margin:0 0 16px;color:var(--tx2);font-size:16.5px}
@@ -1093,6 +1093,35 @@ body.night .lg-dark{display:block}
 .ev .t{display:inline}
 @media(max-width:560px){.evlogo{height:12px}.evlogo img{max-height:12px;max-width:40px}}
 
+
+/* ══════════ 5막 · 길을 찾는 나비 ══════════ */
+#flyers{position:absolute;inset:0;z-index:5;pointer-events:none;overflow:visible}
+.bfly-f{position:absolute;left:0;top:0;width:52px;height:52px;opacity:0;
+  transform:translate(-50%,-50%);transition:opacity .6s ease;will-change:transform,left,top;
+  animation:bf-iris 7s ease-in-out infinite}
+.bfly-f.f2{width:34px;height:34px;animation-duration:9s;animation-delay:-2.5s}
+/* 보석빛이 도는 느낌 — 아주 얕은 색상 회전 */
+@keyframes bf-iris{
+  0%,100%{filter:hue-rotate(0deg) drop-shadow(0 0 5px rgba(207,196,255,.30))}
+  50%    {filter:hue-rotate(26deg) drop-shadow(0 0 9px rgba(245,194,220,.38))}}
+
+/* 결론에 닿으면 물방울처럼 터진다 */
+.spark,.ripple{position:absolute;pointer-events:none;transform:translate(-50%,-50%)}
+.spark{width:6px;height:6px;border-radius:50%;
+  background:radial-gradient(circle at 38% 34%,#fff 0%,var(--bf2) 42%,transparent 72%);
+  animation:spark-out 1s cubic-bezier(.16,.8,.3,1) forwards}
+@keyframes spark-out{
+  0%{opacity:0;transform:translate(-50%,-50%) scale(.25)}
+  16%{opacity:1}
+  100%{opacity:0;transform:translate(calc(-50% + var(--dx)),calc(-50% + var(--dy))) scale(var(--sc))}}
+.ripple{width:16px;height:16px;border-radius:50%;border:1px solid var(--bf1);
+  animation:ripple-out 1.15s cubic-bezier(.16,.8,.3,1) forwards}
+@keyframes ripple-out{
+  0%{opacity:.85;transform:translate(-50%,-50%) scale(.2)}
+  100%{opacity:0;transform:translate(-50%,-50%) scale(5.2)}}
+@media(prefers-reduced-motion:reduce){
+  .bfly-f{animation:none!important}.spark,.ripple{display:none!important}}
+
 /* ══════════ 최종 정리 (이 블록이 항상 마지막에 오도록) ══════════ */
 #webnote{display:none!important}
 @media(max-width:820px){
@@ -1198,7 +1227,7 @@ body.night .lg-dark{display:block}
 
   <div class="wrap flight">
     <svg class="fpath" id="fpath" aria-hidden="true"><path id="fbase"/><path id="flit" class="lit"/></svg>
-    <svg id="pathfly" viewBox="0 0 100 100" aria-hidden="true" style="opacity:0"><defs><linearGradient id="bfFly" x1=".05" y1="0" x2=".95" y2="1"><stop offset="0%" stop-color="var(--bf1)"/><stop offset="52%" stop-color="var(--bf2)"/><stop offset="100%" stop-color="var(--bf3)"/></linearGradient></defs><g class="bffloat"><path class="bfline" d="M50 63 C50 56 50 50 50 46 C43 33 28 17 12 6 C13 25 30 40 49 46 C35 50 16 59 12 76 C24 79 43 67 50 53 C57 67 76 79 88 76 C84 59 65 50 51 46 C70 40 87 25 88 6 C72 17 57 33 50 46 C50 39 54 33 61 29" fill="none" stroke="url(#bfFly)" stroke-width="2.2" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"/></g></svg><div class="act fi"><div class="side a"><div class="no d">01</div><div class="yr">2021–2022</div></div><div class="side"><div class="card"><h3><span class="en">Understanding Systems from the Inside</span><span class="ko">시스템을 직접 만들며 배우다</span></h3><div class="who"><span class="en">UCSD · Big Data Program · Fasoo</span><span class="ko">UCSD · 빅데이터 프로그램 · Fasoo</span></div><p><span class="en">Learned how data systems work by building them — UCSD’s Big Data infrastructure program, a software engineering internship at Fasoo, and side projects in Flutter, Python and C++.</span><span class="ko">데이터 시스템이 어떻게 돌아가는지를 직접 만들면서 배웠습니다. UCSD 빅데이터 인프라 프로그램, Fasoo SW 엔지니어링 인턴, 그리고 Flutter·Python·C++ 개인 프로젝트.</span></p></div></div></div><div class="act fi"><div class="side"><div class="card"><h3><span class="en">Testing Ideas in the Real World</span><span class="ko">밖에서 아이디어를 검증하다</span></h3><div class="who"><span class="en">Betcha · Hyundai Cradle · CES 2024</span><span class="ko">Betcha · 현대 크래들 · CES 2024</span></div><p><span class="en">Researched GAN/VAE architectures and LLM quantization while testing ideas in public — Betcha’s pitch circuit, 2nd place at a Hyundai Cradle hackathon, and a first CES exhibition with Grinda AI.</span><span class="ko">GAN·VAE 구조와 LLM 양자화를 파고들면서, 동시에 밖에서 아이디어를 시험했습니다. Betcha 피칭 서킷, 현대 크래들 해커톤 2위, CES 2024 첫 전시.</span></p></div></div><div class="side a"><div class="no d">02</div><div class="yr">2022–2023</div></div></div><div class="act fi"><div class="side a"><div class="no d">03</div><div class="yr">2023</div></div><div class="side"><div class="card"><h3><span class="en">Getting Inside the Machine</span><span class="ko">AI 제품 안으로 들어가다</span></h3><div class="who"><span class="en">NAVER Cloud — HyperCLOVA X</span><span class="ko">네이버 클라우드 — HyperCLOVA X</span></div><p><span class="en">Backend/AI developer and technical PM on HyperCLOVA X — the first look inside what it actually takes to ship an AI product at national scale.</span><span class="ko">HyperCLOVA X에서 백엔드·AI 개발과 테크 PM을 겸했습니다. AI 제품을 실제 규모로 출시하는 데 무엇이 필요한지 처음으로 안에서 봤습니다.</span></p></div></div></div><div class="act fi"><div class="side"><div class="card"><h3><span class="en">Owning the Full Stack</span><span class="ko">전 과정을 혼자 맡다</span></h3><div class="who"><span class="en">HL Mando Aftermarket North America</span><span class="ko">HL Mando Aftermarket North America</span></div><p><span class="en">Data architecture, automation pipelines and a GenAI validation layer for a 1,500+ SKU catalog across four channels — alone. 40%+ fewer missing attributes, 10–15 hours back per week, CES 2025 with Hyundai MOBIS.</span><span class="ko">1,500개 이상 품번과 4개 채널의 데이터 구조·자동화·GenAI 검증 레이어를 담당자 한 명으로 맡았습니다. 누락 속성 40%+ 감소, 주당 10~15시간 회수, CES 2025 현대모비스 전시.</span></p></div></div><div class="side a"><div class="no d">04</div><div class="yr">2024–2026</div></div></div><div class="act fi"><div class="side a"><div class="no d">05</div><div class="yr">2026–</div></div><div class="side"><div class="card"><h3><span class="en">Deciding Whether It Earns Its Place</span><span class="ko">만들 값이 있는지 판단하다</span></h3><div class="who"><span class="en">Self-directed studies &middot; EY Consulting</span><span class="ko">자율 프로젝트 · EY 컨설팅</span></div><p><span class="en">Three enterprise AI feasibility studies run on my own — manufacturing, retail, finance — before anyone asked for one. Now on EY’s Technology Transformation team: from inside one company to outside many.</span><span class="ko">제조·리테일·금융 대기업 3개사의 AI 도입 타당성 분석을 시키기 전에 혼자 돌렸습니다. 지금은 EY Technology Transformation 팀에 있습니다. 한 회사 안에서 일하다가 여러 회사를 밖에서 보는 자리로 옮겼습니다.</span></p></div></div></div></div>
+    <div id="flyers" aria-hidden="true"><svg class="bfly-f f1" viewBox="0 0 100 100"><defs><linearGradient id="bfF1" x1=".05" y1="0" x2=".95" y2="1"><stop offset="0%" stop-color="var(--bf1)"/><stop offset="38%" stop-color="#EAF2FF"/><stop offset="66%" stop-color="var(--bf2)"/><stop offset="100%" stop-color="var(--bf3)"/></linearGradient></defs><path class="bfline" d="M50 63 C50 56 50 50 50 46 C43 33 28 17 12 6 C13 25 30 40 49 46 C35 50 16 59 12 76 C24 79 43 67 50 53 C57 67 76 79 88 76 C84 59 65 50 51 46 C70 40 87 25 88 6 C72 17 57 33 50 46 C50 39 54 33 61 29" fill="none" stroke="url(#bfF1)" stroke-width="2.3" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"/></svg><svg class="bfly-f f2" viewBox="0 0 100 100"><defs><linearGradient id="bfF2" x1=".05" y1="0" x2=".95" y2="1"><stop offset="0%" stop-color="var(--bf1)"/><stop offset="38%" stop-color="#EAF2FF"/><stop offset="66%" stop-color="var(--bf2)"/><stop offset="100%" stop-color="var(--bf3)"/></linearGradient></defs><path class="bfline" d="M50 63 C50 56 50 50 50 46 C43 33 28 17 12 6 C13 25 30 40 49 46 C35 50 16 59 12 76 C24 79 43 67 50 53 C57 67 76 79 88 76 C84 59 65 50 51 46 C70 40 87 25 88 6 C72 17 57 33 50 46 C50 39 54 33 61 29" fill="none" stroke="url(#bfF2)" stroke-width="2.8" stroke-linecap="butt" stroke-linejoin="miter" stroke-miterlimit="10"/></svg></div><div class="act fi"><div class="side a"><div class="no d">01</div><div class="yr">2021–2022</div></div><div class="side"><div class="card"><h3><span class="en">Understanding Systems from the Inside</span><span class="ko">시스템을 직접 만들며 배우다</span></h3><div class="who"><span class="en">UCSD · Big Data Program · Fasoo</span><span class="ko">UCSD · 빅데이터 프로그램 · Fasoo</span></div><p><span class="en">Learned how data systems work by building them — UCSD’s Big Data infrastructure program, a software engineering internship at Fasoo, and side projects in Flutter, Python and C++.</span><span class="ko">데이터 시스템이 어떻게 돌아가는지를 직접 만들면서 배웠습니다. UCSD 빅데이터 인프라 프로그램, Fasoo SW 엔지니어링 인턴, 그리고 Flutter·Python·C++ 개인 프로젝트.</span></p></div></div></div><div class="act fi"><div class="side"><div class="card"><h3><span class="en">Testing Ideas in the Real World</span><span class="ko">밖에서 아이디어를 검증하다</span></h3><div class="who"><span class="en">Betcha · Hyundai Cradle · CES 2024</span><span class="ko">Betcha · 현대 크래들 · CES 2024</span></div><p><span class="en">Researched GAN/VAE architectures and LLM quantization while testing ideas in public — Betcha’s pitch circuit, 2nd place at a Hyundai Cradle hackathon, and a first CES exhibition with Grinda AI.</span><span class="ko">GAN·VAE 구조와 LLM 양자화를 파고들면서, 동시에 밖에서 아이디어를 시험했습니다. Betcha 피칭 서킷, 현대 크래들 해커톤 2위, CES 2024 첫 전시.</span></p></div></div><div class="side a"><div class="no d">02</div><div class="yr">2022–2023</div></div></div><div class="act fi"><div class="side a"><div class="no d">03</div><div class="yr">2023</div></div><div class="side"><div class="card"><h3><span class="en">Getting Inside the Machine</span><span class="ko">AI 제품 안으로 들어가다</span></h3><div class="who"><span class="en">NAVER Cloud — HyperCLOVA X</span><span class="ko">네이버 클라우드 — HyperCLOVA X</span></div><p><span class="en">Backend/AI developer and technical PM on HyperCLOVA X — the first look inside what it actually takes to ship an AI product at national scale.</span><span class="ko">HyperCLOVA X에서 백엔드·AI 개발과 테크 PM을 겸했습니다. AI 제품을 실제 규모로 출시하는 데 무엇이 필요한지 처음으로 안에서 봤습니다.</span></p></div></div></div><div class="act fi"><div class="side"><div class="card"><h3><span class="en">Owning the Full Stack</span><span class="ko">전 과정을 혼자 맡다</span></h3><div class="who"><span class="en">HL Mando Aftermarket North America</span><span class="ko">HL Mando Aftermarket North America</span></div><p><span class="en">Data architecture, automation pipelines and a GenAI validation layer for a 1,500+ SKU catalog across four channels — alone. 40%+ fewer missing attributes, 10–15 hours back per week, CES 2025 with Hyundai MOBIS.</span><span class="ko">1,500개 이상 품번과 4개 채널의 데이터 구조·자동화·GenAI 검증 레이어를 담당자 한 명으로 맡았습니다. 누락 속성 40%+ 감소, 주당 10~15시간 회수, CES 2025 현대모비스 전시.</span></p></div></div><div class="side a"><div class="no d">04</div><div class="yr">2024–2026</div></div></div><div class="act fi"><div class="side a"><div class="no d">05</div><div class="yr">2026–</div></div><div class="side"><div class="card"><h3><span class="en">Deciding Whether It Earns Its Place</span><span class="ko">만들 값이 있는지 판단하다</span></h3><div class="who"><span class="en">Self-directed studies &middot; EY Consulting</span><span class="ko">자율 프로젝트 · EY 컨설팅</span></div><p><span class="en">Three enterprise AI feasibility studies run on my own — manufacturing, retail, finance — before anyone asked for one. Now on EY’s Technology Transformation team: from inside one company to outside many.</span><span class="ko">제조·리테일·금융 대기업 3개사의 AI 도입 타당성 분석을 시키기 전에 혼자 돌렸습니다. 지금은 EY Technology Transformation 팀에 있습니다. 한 회사 안에서 일하다가 여러 회사를 밖에서 보는 자리로 옮겼습니다.</span></p></div></div></div></div>
   <div class="wrap"><div class="closing fi">
     <p><span class="en">And every chapter has sharpened the same question. I started on the side that <i>builds</i> AI. I am now on the side that decides whether it <b>earns its place</b>.</span><span class="ko">그리고 모든 챕터가 같은 질문을 더 날카롭게 만들었습니다. 저는 AI를 만드는 쪽에서 시작했고, 지금은 그것이 <b>제 값을 하는지</b> 판단하는 쪽에 있습니다.</span></p>
     <p><span class="en"><b>Adding technology is easier than making it possible to tell whether anything actually improved</b> &mdash; and the second one lasts longer. So I leave behind structures that keep working after I am gone.</span><span class="ko"><b>기술을 더하는 일보다, 무엇이 실제로 나아졌는지 판별할 수 있게 만드는 일이 더 어렵습니다.</b> 그리고 두 번째가 더 오래 남습니다. 그래서 제가 없어도 계속 작동하는 구조를 남기려고 합니다.</span></p>
@@ -1564,13 +1593,14 @@ var k=0;setInterval(function(){im[k].classList.remove('on');k=(k+1)%im.length;
   }
   addEventListener('resize', scale); scale();
 })();
-/* ══════════ 5막 비행경로 ══════════ */
+/* ══════════ 5막 · 길을 찾아가는 나비 ══════════ */
 (function(){
 if(RM)return;
 var wrap=document.querySelector('.flight'),svg=document.getElementById('fpath'),
     base=document.getElementById('fbase'),lit=document.getElementById('flit'),
-    fly=document.getElementById('pathfly');
-if(!wrap||!base)return;
+    host=document.getElementById('flyers');
+if(!wrap||!base||!host)return;
+var flies=[].slice.call(host.querySelectorAll('.bfly-f'));
 function build(){
   var w=wrap.offsetWidth,h=wrap.offsetHeight;
   svg.setAttribute('viewBox','0 0 '+w+' '+h);
@@ -1588,22 +1618,68 @@ function build(){
   var len=base.getTotalLength();
   lit.style.strokeDasharray=len;lit.style.strokeDashoffset=len;
   return len;}
-var LEN=0;
+var LEN=0,popped=false,vis=false,t0=performance.now();
+
+/* 결론에 닿는 순간 — 물방울처럼 터지고 보석빛으로 흩어진다 */
+function pop(x,y){
+  var i,n;
+  for(i=0;i<20;i++){
+    n=document.createElement('span');n.className='spark';
+    var ang=Math.random()*Math.PI*2, dist=24+Math.random()*70;
+    n.style.left=x+'px'; n.style.top=y+'px';
+    n.style.setProperty('--dx',(Math.cos(ang)*dist).toFixed(1)+'px');
+    n.style.setProperty('--dy',(Math.sin(ang)*dist-16).toFixed(1)+'px');
+    n.style.setProperty('--sc',(0.3+Math.random()).toFixed(2));
+    n.style.animationDelay=(Math.random()*0.18).toFixed(2)+'s';
+    host.appendChild(n);
+  }
+  for(i=0;i<2;i++){
+    n=document.createElement('span');n.className='ripple';
+    n.style.left=x+'px';n.style.top=y+'px';n.style.animationDelay=(i*0.17)+'s';
+    host.appendChild(n);
+  }
+  setTimeout(function(){
+    host.querySelectorAll('.spark,.ripple').forEach(function(e){e.remove();});
+  },1600);
+}
+
 function upd(){
   var r=wrap.getBoundingClientRect(),vh=innerHeight;
-  var p=(vh*0.62-r.top)/(r.height);p=Math.max(0,Math.min(1,p));
+  var p=(vh*0.62-r.top)/r.height; p=Math.max(0,Math.min(1,p));
   lit.style.strokeDashoffset=LEN*(1-p);
-  if(p<=0||p>=1){fly.style.opacity=0;}
-  else{fly.style.opacity=1;
-    var pt=base.getPointAtLength(LEN*p),
-        pt2=base.getPointAtLength(Math.min(LEN,LEN*p+2)),
-        ang=Math.atan2(pt2.y-pt.y,pt2.x-pt.x)*180/Math.PI;
-    fly.style.left=pt.x+'px';fly.style.top=pt.y+'px';
-    fly.style.transform='translate(-50%,-50%) rotate('+(ang-90)+'deg)';}}
+  var tt=(performance.now()-t0)/1000;
+  for(var i=0;i<flies.length;i++){
+    var f=flies[i], q=p-i*0.06;
+    if(p<=0.02||q<=0||popped){f.style.opacity=0;continue;}
+    q=Math.min(1,q); f.style.opacity=i?0.85:1;
+    var pt=base.getPointAtLength(LEN*q),
+        pt2=base.getPointAtLength(Math.min(LEN,LEN*q+2));
+    /* 선을 정확히 타지 않고 그 언저리를 더듬는다 */
+    var wx=Math.sin(tt*(0.85+i*0.4)+i*2.1)*30+Math.sin(tt*2.4+i*0.7)*9,
+        wy=Math.cos(tt*(0.65+i*0.33)+i*1.5)*20+Math.cos(tt*1.9+i*1.1)*7;
+    var ang=Math.atan2(pt2.y-pt.y,pt2.x-pt.x)*180/Math.PI;
+    f.style.left=(pt.x+wx)+'px'; f.style.top=(pt.y+wy)+'px';
+    f.style.transform='translate(-50%,-50%) rotate('+(ang-90+Math.sin(tt*1.7+i)*16)+'deg)';
+  }
+  if(p>0.96&&!popped){
+    popped=true;
+    var e=base.getPointAtLength(LEN*0.97);
+    for(var k=0;k<flies.length;k++)flies[k].style.opacity=0;
+    pop(e.x,e.y);
+  }
+  if(p<0.9&&popped)popped=false;
+}
+function frame(){ if(vis)upd(); requestAnimationFrame(frame); }
 function init(){LEN=build();upd();}
-addEventListener('resize',init);addEventListener('scroll',upd,{passive:true});
+if('IntersectionObserver' in window){
+  new IntersectionObserver(function(es){vis=es[0].isIntersecting;},{rootMargin:'120px'}).observe(wrap);
+}else vis=true;
+addEventListener('resize',init);
+/* rAF 는 화면 안에 있을 때만 돈다. 임계점을 놓치지 않도록 스크롤에서도 한 번씩 계산한다 */
+addEventListener('scroll',upd,{passive:true});
 if(document.fonts&&document.fonts.ready)document.fonts.ready.then(init);else init();
 setTimeout(init,400);
+requestAnimationFrame(frame);
 })();
 
 /* ══════════ 스킬 궤도 ══════════ */
