@@ -976,9 +976,11 @@ body.ko-on .bigtype .l3{margin-left:14%}
 .ico img{display:block;width:auto;height:auto;max-width:118px;max-height:42px;object-fit:contain}
 .ico-ey .lg-dark{max-height:48px}
 /* 테마별 로고 교체는 .ico 뿐 아니라 .flogo 등 어디서든 동작해야 한다 */
-.lg-dark{display:none}
-body.night .lg-light{display:none}
-body.night .lg-dark{display:block}
+/* 테마 전환은 하드 스위치다 — .ico img / .flogo img / .evlogo img 의
+   display:block 보다 반드시 우선해야 한 쪽만 보인다 */
+.lg-dark{display:none!important}
+body.night .lg-light{display:none!important}
+body.night .lg-dark{display:block!important}
 /* 마크가 없는 곳은 박스 없이 모노그램 글자만 */
 .ico-mono{background:none;border:0;color:var(--tx4);
   font-family:var(--fm)!important;font-size:13px!important;font-weight:700;letter-spacing:.1em}
